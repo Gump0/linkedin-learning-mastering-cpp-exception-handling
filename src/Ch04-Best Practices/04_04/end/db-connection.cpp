@@ -13,7 +13,7 @@ private:
 public:
     const char *fileName{"dbLog.txt"};
 
-    DatabaseConnection() : buffer(std::make_unique<char>(1024)), logStream(fileName, std::ios::app)
+    DatabaseConnection() : buffer(std::make_unique<char>(1024)), logStream(fileName, std::ios::out | std::ios::app)
     {
         std::cout << "Attempting to open database connection." << std::endl;
 
@@ -25,13 +25,6 @@ public:
 
         // Simulate another potential issue after opening the file
         throw std::runtime_error("Failed to connect to database");
-    }
-
-    ~DatabaseConnection()
-    {
-        std::cout << "Closing database connection.\n";
-        // delete[] buffer;      // Memory deallocation for the database connection data
-        // std::fclose(logFile); // Closing the log file handle
     }
 };
 
