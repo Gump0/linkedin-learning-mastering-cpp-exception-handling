@@ -4,20 +4,26 @@ enum ErrorType
 {
     None,
     Disk,
-    Permission,    
+    Permission,
     FileIO
 };
 
-class DiskAccessException {};
+class DiskAccessException
+{
+};
 
-class FilePermissionException {};
+class FilePermissionException
+{
+};
 
-class FileIOException {};
+class FileIOException
+{
+};
 
 void triggerException(ErrorType error)
 {
     switch (error)
-    {    
+    {
     case ErrorType::Disk:
         throw DiskAccessException();
     case ErrorType::Permission:
@@ -33,9 +39,21 @@ int main()
 {
     try
     {
-        triggerException(ErrorType::None);
+        triggerException(ErrorType::FileIO);
     }
-    catch (...)
+    catch (const DiskAccessException &e)
+    {
+        std::cerr << "DiskAccessException" << std::endl;
+    }
+    catch (const FilePermissionException &e)
+    {
+        std::cerr << "FilePermissionException" << std::endl;
+    }
+    catch (const FileIOException &e)
+    {
+        std::cerr << "FileIOException" << std::endl;
+    }
+    catch (...) // HAS to be last, or else it will throw a compile error.
     {
         std::cerr << "An unknown exception occurred." << std::endl;
     }
