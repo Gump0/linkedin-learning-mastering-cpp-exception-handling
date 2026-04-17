@@ -48,23 +48,33 @@ int main()
 {
     try
     {
-        accessAPI(ErrorType::Authentication);
+        accessAPI(ErrorType::DataIntegrity);
     }
-    catch (const std::exception &e)
-    {
-        std::cerr << "Standard exception: " << e.what() << std::endl;
-    }
-    catch (const NetworkError &e)
-    {
-        std::cerr << "NetworkError: " << e.what() << std::endl;
-    }
+
     catch (const AuthenticationError &e)
     {
         std::cerr << "AuthenticationError: " << e.what() << std::endl;
     }
+
+    catch (const NetworkError &e)
+    {
+        std::cerr << "NetworkError: " << e.what() << std::endl;
+    }
+
+    catch (const DataIntegrityError &e)
+    {
+        std::cerr << "DataIntegrityError: " << e.what() << std::endl;
+    }
+
+    catch (const std::exception &e)
+    {
+        std::cerr << "Standard exception: " << e.what() << std::endl;
+    }
+
     catch (...)
     {
         std::cerr << "An unknown exception occurred." << std::endl;
     }
+
     return 0;
 }
