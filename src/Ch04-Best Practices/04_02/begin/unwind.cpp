@@ -34,8 +34,9 @@ void funcA()
 {
     try
     {
-        Resource resA("A");
+        Resource *resA = new Resource("A");
         funcB();
+        delete resA;
     }
     catch (const std::exception &e)
     {

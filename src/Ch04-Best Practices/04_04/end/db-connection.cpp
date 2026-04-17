@@ -1,20 +1,24 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstdio> // For the FILE handle
+#include <memory>
+#include <fstream>
 
 class DatabaseConnection
 {
 private:
-    char *buffer;       // Raw pointer for database connection data
-    std::FILE *logFile; // Raw FILE handle for logging
+    std::unique_ptr<char> buffer; // Raw pointer for database connection data
+    std::fstream logStream;       // Raw FILE handle for logging
 
 public:
-    DatabaseConnection() : buffer(new char[1024]), logFile(std::fopen("dbLog.txt", "a"))
+    const char *fileName{"dbLog.txt"};
+
+    DatabaseConnection() : buffer(std::make_unique<char>(1024)), logStream(fileName, std::ios::app)
     {
         std::cout << "Attempting to open database connection." << std::endl;
 
         // If opening the log file fails, throw an exception
-        if (!logFile)
+        if (!logStream.is_open())
         {
             throw std::runtime_error("Failed to open log file");
         }
