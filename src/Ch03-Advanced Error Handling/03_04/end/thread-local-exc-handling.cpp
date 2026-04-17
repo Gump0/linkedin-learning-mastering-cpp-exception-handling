@@ -27,9 +27,9 @@ void workerFunction(int id)
 int main()
 {
     // Total number of threads to spawn
-    const int numThreads = 50;     
+    const int numThreads = 50;
     // Vector to hold the threads
-    std::vector<std::thread> threads; 
+    std::vector<std::thread> threads;
 
     // Spawn threads
     for (int i = 0; i < numThreads; ++i)
